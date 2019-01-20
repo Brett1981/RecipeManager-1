@@ -1,21 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
 
 namespace RecipeManager
 {
     public class Recipe : IRecipe
     {
-        private readonly List<IIngredient> ingredients = new List<IIngredient>();
-        private readonly List<string> steps = new List<string>();
+        private List<IIngredient> ingredients = new List<IIngredient>();
+        private List<IStep> steps = new List<IStep>();
         private string title;
         private string description;
+        private string imagePath;
 
         public Recipe(string title, string description)
         {
             this.title = title;
             this.description = description;
+            Id = Guid.NewGuid().ToString();
         }
+
+        [JsonConstructor]
+        public Recipe(string title, string description, string imagePath, List<Ingredient> ingredients, List<Step> steps)
+        {
+            this.title = title;
+            this.description = description;
+            this.imagePath = imagePath;
+            this.ingredients = new List<IIngredient>(ingredients);
+            this.steps = new List<IStep>(steps);
+        }
+        
+
+        public string Id { get; set; }
 
         public string Title
         {
@@ -37,15 +54,25 @@ namespace RecipeManager
             }
         }
 
+        public string ImagePath
+        {
+            get => imagePath;
+            set
+            {
+                imagePath = value; 
+                DataChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
         public IEnumerable<IIngredient> Ingredients => ingredients;
 
-        public IEnumerable<string> Steps => steps;
+        public IEnumerable<IStep> Steps => steps;
 
         public event EventHandler DataChanged;
         public event EventHandler<IIngredient> IngredientAdded;
         public event EventHandler<IIngredient> IngredientRemoved;
-        public event EventHandler<string> StepAdded;
-        public event EventHandler<string> StepRemoved;
+        public event EventHandler<IStep> StepAdded;
+        public event EventHandler<IStep> StepRemoved;
 
         public void AddIngredient(IIngredient ingredient)
         {
@@ -54,7 +81,7 @@ namespace RecipeManager
             IngredientAdded?.Invoke(this, ingredient);
         }
 
-        public void AddStep(string step)
+        public void AddStep(IStep step)
         {
             steps.Add(step);
             DataChanged?.Invoke(this, EventArgs.Empty);
@@ -73,7 +100,7 @@ namespace RecipeManager
             return false;
         }
 
-        public bool RemoveStep(string step)
+        public bool RemoveStep(IStep step)
         {
             if (steps.Remove(step))
             {
@@ -84,6 +111,12 @@ namespace RecipeManager
             }
 
             return false;
+        }
+
+        public void SaveRecipe()
+        {
+            Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), "Recipes"));
+            File.WriteAllText(Path.Combine(Directory.GetCurrentDirectory(), "Recipes", $"{Id}.json"), JsonConvert.SerializeObject(this));
         }
     }
 }

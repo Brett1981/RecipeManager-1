@@ -1,28 +1,40 @@
 using System;
+using Newtonsoft.Json;
 
 namespace RecipeManager
 {
     public class Ingredient : IIngredient
     {
-        private IMaterial material;
-        private float grams;
+        private string materialId;
+        private int amount;
 
-        public IMaterial Material
+        public Ingredient()
         {
-            get => material;
+        }
+
+        [JsonConstructor]
+        public Ingredient(string materialId, int amount)
+        {
+            this.materialId = materialId;
+            this.amount = amount;
+        }
+
+        public string MaterialId
+        {
+            get => materialId;
             set
             {
-                material = value;
+                materialId = value;
                 DataChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
-        public float Grams
+        public int Amount
         {
-            get => grams;
+            get => amount;
             set
             {
-                grams = value;
+                amount = value;
                 DataChanged?.Invoke(this, EventArgs.Empty);
             }
         }

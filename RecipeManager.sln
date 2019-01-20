@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeManager.Models", "RecipeManager.Models\RecipeManager.Models.csproj", "{3EBCB52E-9D6B-4729-922F-B710129977BE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeManager.GUI", "RecipeManager.GUI\RecipeManager.GUI.csproj", "{226311B4-024F-4363-A4CC-D3BF249C7636}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{3EBCB52E-9D6B-4729-922F-B710129977BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EBCB52E-9D6B-4729-922F-B710129977BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3EBCB52E-9D6B-4729-922F-B710129977BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{226311B4-024F-4363-A4CC-D3BF249C7636}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{226311B4-024F-4363-A4CC-D3BF249C7636}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{226311B4-024F-4363-A4CC-D3BF249C7636}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{226311B4-024F-4363-A4CC-D3BF249C7636}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

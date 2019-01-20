@@ -4,8 +4,8 @@ namespace RecipeManager
 {
     public interface IIngredient
     {
-        IMaterial Material { get; set; }
-        float Grams { get; set; }
+        string MaterialId { get; set; }
+        int Amount { get; set; }
         event EventHandler DataChanged;
     }
 }
